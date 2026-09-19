@@ -4,134 +4,191 @@
     <title>Human Artifact</title>
 
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background-color: #f3f4f6;
         color: #1f2937;
+        background-color: #f8fafc;
       }
 
-      .container {
-        max-width: 900px;
-        margin: 60px auto;
-        padding: 0 25px;
-      }
-
-      header {
-        background: linear-gradient(135deg, #111827, #2563eb);
+      /* Hero Section */
+      .hero {
+        min-height: 70vh;
+        background: linear-gradient(135deg, #111827, #2563eb, #7c3aed);
         color: white;
-        padding: 50px;
-        border-radius: 15px;
-        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 40px 20px;
       }
 
-      header h1 {
-        margin: 0 0 10px;
-        font-size: 40px;
+      .hero h1 {
+        font-size: 60px;
+        margin: 0 0 15px;
+        letter-spacing: 1px;
       }
 
-      header p {
-        margin: 0;
-        color: #dbeafe;
-        font-size: 17px;
+      .hero p {
+        font-size: 20px;
+        max-width: 650px;
+        line-height: 1.6;
+        color: #e0e7ff;
       }
 
-      .section {
-        background-color: white;
-        padding: 30px;
-        margin-bottom: 20px;
-        border-radius: 15px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      /* Navigation */
+      nav {
+        background-color: #111827;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding: 18px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
       }
 
-      h2 {
-        margin-top: 0;
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: #a78bfa;
+      }
+
+      /* Main Sections */
+      section {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 100px 25px;
+      }
+
+      section h2 {
+        font-size: 36px;
         color: #111827;
+        margin-bottom: 20px;
       }
 
-      p {
-        line-height: 1.7;
+      section p {
+        font-size: 18px;
+        line-height: 1.8;
         color: #4b5563;
       }
 
-      .course-label {
-        display: inline-block;
-        background-color: #ede9fe;
+      .section-label {
         color: #7c3aed;
-        padding: 7px 14px;
-        border-radius: 20px;
         font-size: 14px;
         font-weight: bold;
-        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
       }
 
-      .work-in-progress {
-        border-left: 5px solid #7c3aed;
+      .name {
+        font-size: 22px;
+        font-weight: bold;
+        color: #2563eb;
+      }
+
+      /* Artifact Section */
+      #artifact {
+        max-width: none;
+        padding: 120px 25px;
+        background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+        text-align: center;
+      }
+
+      #artifact p {
+        max-width: 700px;
+        margin: 15px auto;
       }
 
       .status {
-        color: #2563eb;
+        color: #7c3aed;
         font-weight: bold;
       }
 
+      /* Footer */
       footer {
+        background-color: #111827;
+        color: #9ca3af;
         text-align: center;
-        color: #6b7280;
+        padding: 25px;
         font-size: 14px;
-        padding: 15px;
       }
     </style>
   </head>
 
   <body>
-    <div class="container">
 
-      <header>
-        <h1>Human Artifact</h1>
-        <p>
-          Exploring the relationship between humans, technology, and AI.
-        </p>
-      </header>
+    <!-- Hero -->
+    <header class="hero">
+      <h1>Human Artifact</h1>
 
-      <section class="section">
-        <span class="course-label">Honors Seminar</span>
+      <p>
+        Exploring what it means to be human in a world shaped by
+        technology and artificial intelligence.
+      </p>
+    </header>
 
-        <h2>About the Course</h2>
+    <!-- Navigation -->
+    <nav>
+      <a href="#course">Honors Seminar</a>
+      <a href="#about">About Me</a>
+      <a href="#artifact">Human Artifact</a>
+    </nav>
 
-        <p>
-          This course explores the relationship between humans and technology,
-          including topics such as artificial intelligence, human identity,
-          decision-making, and how technology shapes our lives.
-        </p>
-      </section>
+    <!-- Course Section -->
+    <section id="course">
+      <span class="section-label">The Course</span>
 
-      <section class="section">
-        <h2>About Me</h2>
+      <h2>Honors Seminar</h2>
 
-        <p>
-          I am a Computer Science major at Florida International University.
-          I am interested in technology, software, and how computers can be
-          used to solve problems.
-        </p>
-      </section>
+      <p>
+        This course explores the relationship between humans and technology,
+        including topics such as artificial intelligence, human identity,
+        decision-making, and how technology shapes our lives.
+      </p>
+    </section>
 
-      <section class="section work-in-progress">
-        <h2>Human Artifact</h2>
+    <!-- About Me Section -->
+    <section id="about">
+      <span class="section-label">About</span>
+    
+      <h2>About Me</h2>
+    
+      <p>
+        My name is Abdul Nini, and I am currently studying Computer Science
+        at Florida International University. I am interested in technology,
+        software, and how computers can be used to solve problems.
+      </p>
+    </section>
 
-        <p>
-          <span class="status">Work in Progress</span>
-        </p>
+    <!-- Human Artifact Section -->
+    <section id="artifact">
+      <span class="section-label">My Project</span>
 
-        <p>
-          My Human Artifact will live here. This project will explore what it
-          means to be human in a world shaped by technology and AI.
-        </p>
-      </section>
+      <h2>Human Artifact</h2>
 
-      <footer>
-        Human Artifact &bull; Honors Seminar
-      </footer>
+      <p class="status">Work in Progress</p>
 
-    </div>
+      <p>
+        My Human Artifact will live here. This project will explore
+        what it means to be human in a world shaped by technology and AI.
+      </p>
+    </section>
+
+    <footer>
+      Human Artifact &bull; Honors Seminar
+    </footer>
+
   </body>
 </html>
