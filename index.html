@@ -2,13 +2,136 @@
 <html>
   <head>
     <title>Human Artifact</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f3f4f6;
+        color: #1f2937;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 0 25px;
+      }
+
+      header {
+        background: linear-gradient(135deg, #111827, #2563eb);
+        color: white;
+        padding: 50px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+      }
+
+      header h1 {
+        margin: 0 0 10px;
+        font-size: 40px;
+      }
+
+      header p {
+        margin: 0;
+        color: #dbeafe;
+        font-size: 17px;
+      }
+
+      .section {
+        background-color: white;
+        padding: 30px;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      h2 {
+        margin-top: 0;
+        color: #111827;
+      }
+
+      p {
+        line-height: 1.7;
+        color: #4b5563;
+      }
+
+      .course-label {
+        display: inline-block;
+        background-color: #ede9fe;
+        color: #7c3aed;
+        padding: 7px 14px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      .work-in-progress {
+        border-left: 5px solid #7c3aed;
+      }
+
+      .status {
+        color: #2563eb;
+        font-weight: bold;
+      }
+
+      footer {
+        text-align: center;
+        color: #6b7280;
+        font-size: 14px;
+        padding: 15px;
+      }
+    </style>
   </head>
+
   <body>
-    <h1>Human Artifact</h1>
-      <h2>About:</h2>
-    <p>
-      An interactive web-based project exploring what it means to be human in a world shaped by technology and AI. 
-      Developed through collaboration with GenAI, the project explores themes of human identity, technology, decision-making, and our relationship with AI.
-    </p>
+    <div class="container">
+
+      <header>
+        <h1>Human Artifact</h1>
+        <p>
+          Exploring the relationship between humans, technology, and AI.
+        </p>
+      </header>
+
+      <section class="section">
+        <span class="course-label">Honors Seminar</span>
+
+        <h2>About the Course</h2>
+
+        <p>
+          This course explores the relationship between humans and technology,
+          including topics such as artificial intelligence, human identity,
+          decision-making, and how technology shapes our lives.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>About Me</h2>
+
+        <p>
+          I am a Computer Science major at Florida International University.
+          I am interested in technology, software, and how computers can be
+          used to solve problems.
+        </p>
+      </section>
+
+      <section class="section work-in-progress">
+        <h2>Human Artifact</h2>
+
+        <p>
+          <span class="status">Work in Progress</span>
+        </p>
+
+        <p>
+          My Human Artifact will live here. This project will explore what it
+          means to be human in a world shaped by technology and AI.
+        </p>
+      </section>
+
+      <footer>
+        Human Artifact &bull; Honors Seminar
+      </footer>
+
+    </div>
   </body>
 </html>
