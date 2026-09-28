@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From Stone Tools to AI</title>
+
+  <style>
+    :root {
+      --navy: #0f172a;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --cyan: #06b6d4;
+      --bg: #f3f4f6;
+      --text: #1f2937;
+      --muted: #64748b;
+      --line: #cbd5e1;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .hero {
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(37, 99, 235, .45), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(124, 58, 237, .5), transparent 30%),
+        linear-gradient(135deg, #020617, #172554 55%, #4c1d95);
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 13px;
+      color: #bfdbfe;
+      font-weight: bold;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 82px);
+      line-height: 1;
+      margin: 18px 0;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      color: #e0e7ff;
+      font-size: clamp(17px, 2.5vw, 21px);
+    }
+
+    .start-button {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 13px 24px;
+      border-radius: 999px;
+      background: white;
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .start-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,.2);
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      padding: 16px 20px;
+      background: rgba(15, 23, 42, .96);
+      backdrop-filter: blur(10px);
+    }
+
+    nav a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #93c5fd;
+    }
+
+    .intro {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 24px 30px;
+      text-align: center;
+    }
+
+    .intro h2 {
+      font-size: clamp(30px, 5vw, 48px);
+      margin-bottom: 12px;
+    }
+
+    .intro p {
+      color: var(--muted);
+      max-width: 720px;
+      margin: auto;
+    }
+
+    /* Main interactive timeline */
+    .timeline {
+      position: relative;
+      max-width: 1050px;
+      margin: 40px auto 100px;
+      padding: 0 24px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(var(--blue), var(--purple), var(--cyan));
+      transform: translateX(-50%);
+      border-radius: 10px;
+    }
+
+    .node {
+      position: relative;
+      width: 50%;
+      padding: 22px 50px 22px 0;
+    }
+
+    .node:nth-child(even) {
+      margin-left: 50%;
+      padding: 22px 0 22px 50px;
+    }
+
+    .node-dot {
+      position: absolute;
+      right: -13px;
+      top: 36px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: white;
+      border: 6px solid var(--blue);
+      z-index: 2;
+    }
+
+    .node:nth-child(even) .node-dot {
+      left: -13px;
+      right: auto;
+      border-color: var(--purple);
+    }
+
+    .node-button {
+      width: 100%;
+      border: 0;
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(15, 23, 42, .08);
+      transition: transform .2s, box-shadow .2s;
+      color: inherit;
+    }
+
+    .node-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 35px rgba(15, 23, 42, .14);
+    }
+
+    .visual {
+      width: 75px;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #dbeafe, #ede9fe);
+      font-size: 42px;
+      margin-bottom: 14px;
+    }
+
+    .date {
+      display: block;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .node h3 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .short {
+      color: var(--muted);
+      margin: 8px 0 0;
+    }
+
+    .details {
+      display: none;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .node.active .details {
+      display: block;
+    }
+
+    .details p {
+      margin: 8px 0;
+    }
+
+    .details strong {
+      color: var(--navy);
+    }
+
+    .next-button {
+      margin-top: 16px;
+      border: 0;
+      background: var(--navy);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .next-button:hover {
+      background: var(--blue);
+    }
+
+    /* Branch section */
+    .branch-section {
+      padding: 100px 24px;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+    }
+
+    .branch-section h2 {
+      font-size: clamp(30px, 5vw, 48px);
+      margin-bottom: 12px;
+    }
+
+    .branch-section > p {
+      max-width: 700px;
+      margin: 0 auto 55px;
+      color: #cbd5e1;
+    }
+
+    .branch-map {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    .branch-box {
+      min-width: 180px;
+      padding: 20px;
+      border: 1px solid #475569;
+      border-radius: 14px;
+      background: #1e293b;
+    }
+
+    .branch-box h3 {
+      margin: 5px 0;
+    }
+
+    .branch-box p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .branch-arrow {
+      font-size: 30px;
+      color: #93c5fd;
+      padding: 15px;
+    }
+
+    .branch-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .branch-box.highlight {
+      border-color: #a78bfa;
+      background: linear-gradient(135deg, #312e81, #4c1d95);
+    }
+
+    /* Final message */
+    .ending {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 110px 24px;
+      text-align: center;
+    }
+
+    .ending h2 {
+      font-size: clamp(32px, 6vw, 55px);
+      margin-bottom: 20px;
+    }
+
+    .ending p {
+      max-width: 760px;
+      margin: 14px auto;
+      font-size: 18px;
+      color: #475569;
+    }
+
+    .ending .big-line {
+      font-size: 25px;
+      font-weight: bold;
+      color: var(--purple);
+    }
+
+    /* Sources */
+    .sources {
+      background: white;
+      padding: 80px 24px;
+    }
+
+    .sources-inner {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .sources h2 {
+      font-size: 36px;
+      margin-top: 0;
+    }
+
+    .sources p {
+      color: var(--muted);
+    }
+
+    .sources ol {
+      padding-left: 25px;
+    }
+
+    .sources li {
+      margin-bottom: 15px;
+      color: #475569;
+    }
+
+    .sources a {
+      color: #2563eb;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      padding: 25px;
+      background: #020617;
+      color: #94a3b8;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 760px) {
+      .timeline::before {
+        left: 20px;
+      }
+
+      .node,
+      .node:nth-child(even) {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px 0 20px 55px;
+      }
+
+      .node-dot,
+      .node:nth-child(even) .node-dot {
+        left: 7px;
+        right: auto;
+      }
+
+      .branch-arrow {
+        transform: rotate(90deg);
+      }
+
+      nav {
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">An Interactive History of Technology</div>
+      <h1>From Stone Tools to AI</h1>
+      <p>
+        How humans built new technologies on top of old ones,
+        creating a growing chain of tools, knowledge, communication,
+        computation, and artificial intelligence.
+      </p>
+      <a class="start-button" href="#timeline">Start the journey ↓</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#timeline">Timeline</a>
+    <a href="#branches">Branches</a>
+    <a href="#ending">The Big Idea</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <section class="intro" id="timeline">
+    <h2>A Chain of Possibilities</h2>
+    <p>
+      Click each technology to see what changed and how it helped create
+      new possibilities. The connections are not a single straight line.
+      Technologies often developed in parallel and influenced one another.
+    </p>
+  </section>
+
+  <main class="timeline">
+
+    <article class="node active">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🪨</div>
+        <span class="date">At least 2.6 million years ago</span>
+        <h3>Stone Tools</h3>
+        <p class="short">Technology begins by extending what the human body can do.</p>
+
+        <div class="details">
+          <p>
+            Early humans made stone tools including hammerstones, stone cores,
+            and sharp flakes. These tools could be used for cutting, pounding,
+            crushing, and processing food.
+          </p>
+          <p><strong>Helped enable:</strong> Greater control over materials and food.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🔥</div>
+        <span class="date">At least 790,000 years ago</span>
+        <h3>Controlled Fire</h3>
+        <p class="short">Humans learned to use another part of the environment as a tool.</p>
+
+        <div class="details">
+          <p>
+            Archaeological evidence shows hearths at least 790,000 years old.
+            Controlled fire provided heat, protection, and cooking. Cooking
+            changed how food could be processed and digested.
+          </p>
+          <p><strong>Helped enable:</strong> New ways to process food and gather socially.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🌾</div>
+        <span class="date">Beginning roughly 10,000 years ago</span>
+        <h3>Agriculture</h3>
+        <p class="short">Humans increasingly began producing food and changing their surroundings.</p>
+
+        <div class="details">
+          <p>
+            Different societies independently domesticated plants and animals.
+            Agriculture supported more permanent settlements and eventually
+            contributed to larger and more complex societies.
+          </p>
+          <p><strong>Helped enable:</strong> Food production, settlements, specialization, and larger communities.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">⚙️</div>
+        <span class="date">4th millennium BCE</span>
+        <h3>Wheel</h3>
+        <p class="short">A mechanical principle began multiplying human effort and changing transportation.</p>
+
+        <div class="details">
+          <p>
+            Wheeled technology emerged in the ancient world during the 4th
+            millennium BCE. Wheels became important in transportation and
+            mechanical systems, while related rotating technology was also
+            used in pottery.
+          </p>
+          <p><strong>Helped enable:</strong> Carts, vehicles, and new mechanical systems.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">✍️</div>
+        <span class="date">Around 3200 BCE</span>
+        <h3>Writing</h3>
+        <p class="short">Humans developed ways to store information outside the human brain.</p>
+
+        <div class="details">
+          <p>
+            Writing emerged in Mesopotamia around 3200 BCE. Early cuneiform
+            was used to record information such as the collection and
+            distribution of food supplies.
+          </p>
+          <p><strong>Helped enable:</strong> Persistent records, administration, laws, and knowledge transfer.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">📖</div>
+        <span class="date">15th century</span>
+        <h3>Printing</h3>
+        <p class="short">Information could be reproduced and distributed at a much larger scale.</p>
+
+        <div class="details">
+          <p>
+            Printing existed in East Asia centuries before Gutenberg. In
+            Europe, Gutenberg's movable-type printing technology helped make
+            large-scale reproduction of books practical in the 15th century.
+          </p>
+          <p><strong>Helped enable:</strong> Wider distribution of written knowledge.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🏭</div>
+        <span class="date">18th–19th centuries</span>
+        <h3>Steam Power & Industry</h3>
+        <p class="short">Machines began multiplying physical production on a new scale.</p>
+
+        <div class="details">
+          <p>
+            Improvements in steam engines helped power industrial machinery,
+            transportation, mining, and manufacturing during industrialization.
+          </p>
+          <p><strong>Helped enable:</strong> Mechanized production and large-scale industry.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">⚡</div>
+        <span class="date">19th century</span>
+        <h3>Electricity</h3>
+        <p class="short">A flexible source of power opened new possibilities for machines and communication.</p>
+
+        <div class="details">
+          <p>
+            The development of electrical generation, motors, lighting,
+            communication, and distribution created an expanding electrical
+            infrastructure.
+          </p>
+          <p><strong>Helped enable:</strong> Electrical machines, communication systems, and electronics.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">📡</div>
+        <span class="date">1844</span>
+        <h3>Telegraph</h3>
+        <p class="short">Information could travel over electrical wires faster than people could physically carry it.</p>
+
+        <div class="details">
+          <p>
+            Samuel Morse sent a public telegram from Washington, D.C. to
+            Baltimore on May 24, 1844. The telegraph transformed long-distance
+            communication.
+          </p>
+          <p><strong>Helped enable:</strong> Rapid electrical communication over distance.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">☎️</div>
+        <span class="date">1876</span>
+        <h3>Telephone</h3>
+        <p class="short">Electrical communication expanded from coded messages to the human voice.</p>
+
+        <div class="details">
+          <p>
+            Alexander Graham Bell received a U.S. telephone patent in 1876.
+            Telephone technology grew from earlier work on electrical
+            communication and the telegraph.
+          </p>
+          <p><strong>Helped enable:</strong> Real-time voice communication across distance.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🖥️</div>
+        <span class="date">1930s–1950s</span>
+        <h3>Electronic Computers</h3>
+        <p class="short">Machines could process information according to instructions.</p>
+
+        <div class="details">
+          <p>
+            Electronic computing developed through many machines and research
+            projects rather than one single invention. Computers increasingly
+            automated calculations, stored information, and executed programs.
+          </p>
+          <p><strong>Helped enable:</strong> Automated information processing and programmable computation.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🔲</div>
+        <span class="date">1947</span>
+        <h3>Transistor</h3>
+        <p class="short">A smaller, more practical electronic building block replaced many vacuum-tube applications.</p>
+
+        <div class="details">
+          <p>
+            John Bardeen and Walter Brattain achieved transistor action at
+            Bell Labs in December 1947. William Shockley later developed the
+            junction transistor.
+          </p>
+          <p><strong>Helped enable:</strong> Smaller, more reliable electronic systems.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">💾</div>
+        <span class="date">1958–1960</span>
+        <h3>Integrated Circuits</h3>
+        <p class="short">Multiple electronic components could be combined into a single chip.</p>
+
+        <div class="details">
+          <p>
+            Jack Kilby demonstrated an integrated circuit in 1958. Robert
+            Noyce independently developed a practical monolithic approach,
+            and Fairchild produced early working planar ICs.
+          </p>
+          <p><strong>Helped enable:</strong> More powerful, smaller, and increasingly affordable computing.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🧠</div>
+        <span class="date">1956</span>
+        <h3>Artificial Intelligence</h3>
+        <p class="short">Researchers began treating machine intelligence as a formal field of study.</p>
+
+        <div class="details">
+          <p>
+            At the 1956 Dartmouth Summer Research Project on Artificial
+            Intelligence, researchers formally used and developed the idea
+            of artificial intelligence as a field of research.
+          </p>
+          <p><strong>Helped enable:</strong> Systematic research into machine reasoning, learning, and problem solving.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">📊</div>
+        <span class="date">1950s onward</span>
+        <h3>Machine Learning</h3>
+        <p class="short">Computers increasingly learned patterns instead of relying only on hand-written rules.</p>
+
+        <div class="details">
+          <p>
+            Early machine-learning research included Arthur Samuel's checkers
+            program. Over time, researchers developed increasingly sophisticated
+            statistical and neural-network methods for learning from data.
+          </p>
+          <p><strong>Helped enable:</strong> Systems that could learn patterns from examples.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🌐</div>
+        <span class="date">1960s–1990s</span>
+        <h3>Computer Networks & Internet</h3>
+        <p class="short">Computers became connected, allowing information and computation to move across networks.</p>
+
+        <div class="details">
+          <p>
+            ARPANET began connecting computers in 1969. The networked
+            technologies that followed contributed to the development and
+            expansion of the Internet.
+          </p>
+          <p><strong>Helped enable:</strong> Global communication, distributed computing, and enormous digital information systems.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🚀</div>
+        <span class="date">2012</span>
+        <h3>Deep Learning Takes Off</h3>
+        <p class="short">Large neural networks became dramatically more capable with modern computing and data.</p>
+
+        <div class="details">
+          <p>
+            AlexNet's 2012 results on ImageNet were a major turning point for
+            modern deep learning. Neural networks trained with powerful GPUs
+            achieved a large improvement in image-recognition performance.
+          </p>
+          <p><strong>Helped enable:</strong> A rapid expansion of neural-network approaches across AI.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🔗</div>
+        <span class="date">2017</span>
+        <h3>Transformers</h3>
+        <p class="short">A new neural-network architecture became a foundation for modern language models.</p>
+
+        <div class="details">
+          <p>
+            The 2017 paper <em>Attention Is All You Need</em> introduced the
+            Transformer architecture, based on attention mechanisms and
+            designed to process sequences more efficiently in parallel.
+          </p>
+          <p><strong>Helped enable:</strong> Modern large language models and many generative AI systems.</p>
+          <button class="next-button" onclick="nextNode(event, this)">Next →</button>
+        </div>
+      </button>
+    </article>
+
+    <article class="node">
+      <span class="node-dot"></span>
+      <button class="node-button" onclick="toggleNode(this)">
+        <div class="visual">🤖</div>
+        <span class="date">2020s</span>
+        <h3>Generative AI</h3>
+        <p class="short">AI systems can generate new text, images, audio, code, and other content.</p>
+
+        <div class="details">
+          <p>
+            Modern generative AI builds on decades of progress in computing,
+            semiconductors, networks, machine learning, neural networks,
+            large datasets, and model architectures such as Transformers.
+          </p>
+          <p><strong>What comes next?</strong> This does not have to be the end of the chain. New technologies can build on generative AI just as earlier technologies built on what came before.</p>
+        </div>
+      </button>
+    </article>
+
+  </main>
+
+  <section class="branch-section" id="branches">
+    <h2>Technology Does Not Grow in a Straight Line</h2>
+    <p>
+      The main timeline is a simplified path. In reality, technologies branch,
+      overlap, and combine. Computing, networking, data, and AI developed through
+      many connected paths.
+    </p>
+
+    <div class="branch-map">
+      <div class="branch-box">
+        <div class="visual">🖥️</div>
+        <h3>Computing</h3>
+        <p>Programmable machines and increasingly powerful processors.</p>
+      </div>
+
+      <div class="branch-arrow">→</div>
+
+      <div class="branch-column">
+        <div class="branch-box">
+          <div class="visual">🌐</div>
+          <h3>Networks</h3>
+          <p>Computers communicate and share information.</p>
+        </div>
+
+        <div class="branch-box">
+          <div class="visual">📊</div>
+          <h3>Data & Learning</h3>
+          <p>Systems learn patterns from increasingly large datasets.</p>
+        </div>
+      </div>
+
+      <div class="branch-arrow">→</div>
+
+      <div class="branch-box highlight">
+        <div class="visual">🤖</div>
+        <h3>Generative AI</h3>
+        <p>Modern systems combine computing, data, algorithms, and neural networks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ending" id="ending">
+    <h2>AI Did Not Appear Out of Nowhere.</h2>
+
+    <p class="big-line">
+      It is another wave in a much longer history of technological development.
+    </p>
+
+    <p>
+      Humans created tools to extend physical abilities, developed ways to
+      store and reproduce information, built systems to communicate across
+      distances, created machines that could process information, and then
+      developed systems that could learn from data.
+    </p>
+
+    <p>
+      Each generation inherited technologies and knowledge from earlier
+      generations and used them to create new possibilities.
+    </p>
+
+    <p>
+      <strong>The story does not necessarily end with AI.</strong>
+      AI can become part of the next generation of technologies just as
+      earlier technologies became part of the systems that came before it.
+    </p>
+  </section>
+
+  <section class="sources" id="sources">
+    <div class="sources-inner">
+      <h2>Sources</h2>
+      <p>
+        The infographic uses these sources for the historical claims and dates.
+        Dates are approximate where the historical evidence does not support
+        one exact invention date.
+      </p>
+
+      <ol>
+        <li>
+          Smithsonian Institution, Human Origins Program.
+          <a href="https://humanorigins.si.edu/evidence/behavior/stone-tools" target="_blank" rel="noopener">
+            Stone Tools
+          </a>
+        </li>
+
+        <li>
+          Smithsonian Institution, Human Origins Program.
+          <a href="https://humanorigins.si.edu/evidence/behavior/hearths-shelters" target="_blank" rel="noopener">
+            Hearths & Shelters
+          </a>
+        </li>
+
+        <li>
+          Smithsonian Institution, Human Origins Program.
+          <a href="https://humanorigins.si.edu/human-characteristics/humans-change-world" target="_blank" rel="noopener">
+            Humans Change the World
+          </a>
+        </li>
+
+        <li>
+          British Museum.
+          <a href="https://www.britishmuseum.org/sites/default/files/2019-09/Visit_Mesopotamia_KS2b.pdf" target="_blank" rel="noopener">
+            Mesopotamia: Writing and Cuneiform
+          </a>
+        </li>
+
+        <li>
+          Library of Congress.
+          <a href="https://guides.loc.gov/telecommunications-industry/history" target="_blank" rel="noopener">
+            Telecommunications Industry: A Research Guide
+          </a>
+        </li>
+
+        <li>
+          Library of Congress.
+          <a href="https://www.loc.gov/item/06011209/" target="_blank" rel="noopener">
+            Gutenberg and the Art of Printing
+          </a>
+        </li>
+
+        <li>
+          Computer History Museum.
+          <a href="https://www.computerhistory.org/timeline/1947/" target="_blank" rel="noopener">
+            Timeline of Computer History: 1947
+          </a>
+        </li>
+
+        <li>
+          Computer History Museum.
+          <a href="https://www.computerhistory.org/siliconengine/invention-of-the-point-contact-transistor/" target="_blank" rel="noopener">
+            Invention of the Point-Contact Transistor
+          </a>
+        </li>
+
+        <li>
+          Computer History Museum.
+          <a href="https://www.computerhistory.org/siliconengine/all-semiconductor-solid-circuit-is-demonstrated/" target="_blank" rel="noopener">
+            All Semiconductor "Solid Circuit" is Demonstrated
+          </a>
+        </li>
+
+        <li>
+          Dartmouth.
+          <a href="https://ai.dartmouth.edu/our-story" target="_blank" rel="noopener">
+            Our Story: Where AI Was Born
+          </a>
+        </li>
+
+        <li>
+          Computer History Museum.
+          <a href="https://www.computerhistory.org/internethistory/" target="_blank" rel="noopener">
+            Internet History
+          </a>
+        </li>
+
+        <li>
+          Computer History Museum.
+          <a href="https://computerhistory.org/blog/chm-releases-alexnet-source-code/" target="_blank" rel="noopener">
+            AlexNet and the Origins of Deep Learning
+          </a>
+        </li>
+
+        <li>
+          Vaswani et al.
+          <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">
+            Attention Is All You Need
+          </a>
+        </li>
+      </ol>
+
+      <p>
+        <strong>Historical note:</strong> This infographic simplifies a very
+        complicated history. Technologies often developed independently,
+        overlapped, and influenced one another in multiple directions. The
+        arrows represent important relationships and enabling conditions,
+        not a claim that one invention directly caused the next.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    Human Artifact &bull; Interactive Infographic
+  </footer>
+
+  <script>
+    function toggleNode(button) {
+      const node = button.closest(".node");
+      node.classList.toggle("active");
+    }
+
+    function nextNode(event, button) {
+      event.stopPropagation();
+
+      const currentNode = button.closest(".node");
+      const nextNode = currentNode.nextElementSibling;
+
+      if (nextNode) {
+        currentNode.classList.remove("active");
+        nextNode.classList.add("active");
+
+        setTimeout(() => {
+          nextNode.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }, 100);
+      }
+    }
+  </script>
+
+</body>
+</html>
